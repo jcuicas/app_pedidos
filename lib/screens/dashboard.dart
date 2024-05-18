@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:app_pedidos/components/my_appbar.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({super.key});
+  final String accessToken;
+  final String tokenType;
+
+  const Dashboard({
+    super.key,
+    required this.accessToken,
+    required this.tokenType,
+  });
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -11,12 +19,14 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(),
       body: GridView.count(
         crossAxisCount: 2,
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 6.0, left: 3.0),
             child: Card(
+              color: Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
                 title: Text(
@@ -30,6 +40,7 @@ class _DashboardState extends State<Dashboard> {
           Padding(
             padding: const EdgeInsets.only(top: 6.0, right: 3.0),
             child: Card(
+              color: Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
                 title: Text(
@@ -43,6 +54,7 @@ class _DashboardState extends State<Dashboard> {
           Padding(
             padding: const EdgeInsets.only(top: 6.0, left: 3.0),
             child: Card(
+              color: Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
                 title: Text(
@@ -56,6 +68,7 @@ class _DashboardState extends State<Dashboard> {
           Padding(
             padding: const EdgeInsets.only(top: 6.0, right: 3.0),
             child: Card(
+              color: Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
                 title: Text(
