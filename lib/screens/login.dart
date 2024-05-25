@@ -114,7 +114,8 @@ class _LoginState extends State<Login> {
         loginUser.then(
           (value) => {
             value.accessToken.isNotEmpty
-                ? goDashboard(value.accessToken, value.tokenType)
+                ? goDashboard(value.id, value.accessToken, value.tokenType,
+                    value.userEmail)
                 : msgErrorLogin()
           },
         );
@@ -131,27 +132,35 @@ class _LoginState extends State<Login> {
         password: passwordUser.text,
       );
 
-      //debugPrint(response.toString());
+      final session = response.session!;
+      final user = response.user!;
 
       return Auth(
-        accessToken: response.session!.accessToken.toString(),
-        tokenType: response.session!.tokenType.toString(),
+        id: user.id,
+        accessToken: session.accessToken,
+        tokenType: session.tokenType,
+        userEmail: user.email.toString(),
       );
     } catch (ex) {
       return const Auth(
+        id: '',
         accessToken: '',
         tokenType: '',
+        userEmail: '',
       );
     }
   }
 
-  void goDashboard(String accessToken, String tokenType) {
+  void goDashboard(
+      String id, String accessToken, String tokenType, String userEmail) {
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => Dashboard(
+          id: id,
           accessToken: accessToken,
           tokenType: tokenType,
+          userEmail: userEmail,
         ),
       ),
     );
@@ -162,7 +171,7 @@ class _LoginState extends State<Login> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Aviso importante'),
-        content: Column(
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text('Credenciales no registradas'),
@@ -173,8 +182,8 @@ class _LoginState extends State<Login> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.check_circle),
-            label: Text('Aceptar'),
+            icon: const Icon(Icons.check_circle),
+            label: const Text('Aceptar'),
           ),
         ],
       ),

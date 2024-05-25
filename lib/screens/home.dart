@@ -75,8 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: _conexion
           ? Login()
           : Dashboard(
+              id: '',
               accessToken: '',
               tokenType: '',
+              userEmail: '',
             ),
       backgroundColor: Colors.grey[200],
     );
