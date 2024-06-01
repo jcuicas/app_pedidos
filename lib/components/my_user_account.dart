@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class MyUserAccount extends StatefulWidget {
   final String userEmail;
+  final String fullName;
 
   const MyUserAccount({
     super.key,
     required this.userEmail,
+    required this.fullName,
   });
 
   @override
@@ -23,7 +25,7 @@ class _MyUserAccountState extends State<MyUserAccount> {
             color: Color(0xffec1c24),
             width: 3.0,
           ))),
-      accountName: Text('José Cuicas'),
+      accountName: Text(widget.fullName),
       accountEmail: Text(widget.userEmail),
       currentAccountPicture: CircleAvatar(
         backgroundColor: Color(0xffffffff),

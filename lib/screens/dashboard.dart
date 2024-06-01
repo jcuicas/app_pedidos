@@ -1,15 +1,14 @@
-import 'package:app_pedidos/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_button_drawer.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Dashboard extends StatefulWidget {
   final String id;
   final String accessToken;
   final String tokenType;
   final String userEmail;
+  final String fullName;
 
   const Dashboard({
     super.key,
@@ -17,6 +16,7 @@ class Dashboard extends StatefulWidget {
     required this.accessToken,
     required this.tokenType,
     required this.userEmail,
+    required this.fullName,
   });
 
   @override
@@ -25,25 +25,6 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final supabase = Supabase.instance.client;
-
-  late Future<Profile> userProfile;
-
-  Future<Profile> obtenerPerfil() async {
-    final response =
-        await supabase.from('profiles').select().eq('id', widget.id);
-
-    debugPrint(response.toString());
-
-    return Future.error('Falló la conexión');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    obtenerPerfil();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +32,7 @@ class _DashboardState extends State<Dashboard> {
       key: _scaffoldKey,
       drawer: MyDrawer(
         userEmail: widget.userEmail,
+        fullName: widget.fullName,
       ),
       appBar: MyAppBar(
         myButtonDrawer: MyButtonDrawer(

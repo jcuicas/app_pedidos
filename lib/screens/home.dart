@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
               accessToken: '',
               tokenType: '',
               userEmail: '',
+              fullName: '',
             ),
       backgroundColor: Colors.grey[200],
     );

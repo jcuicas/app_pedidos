@@ -1,3 +1,4 @@
+import 'package:app_pedidos/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
 import 'package:app_pedidos/models/auth.dart';
@@ -151,18 +152,29 @@ class _LoginState extends State<Login> {
     }
   }
 
+  Future<Profile> obtenerPerfil(String id) async {
+    final response = await supabase.from('profiles').select().eq('id', id);
+
+    return Profile(fullName: response[0]['full_name']);
+  }
+
   void goDashboard(
       String id, String accessToken, String tokenType, String userEmail) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => Dashboard(
-          id: id,
-          accessToken: accessToken,
-          tokenType: tokenType,
-          userEmail: userEmail,
-        ),
-      ),
+    obtenerPerfil(id).then(
+      (value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Dashboard(
+              id: id,
+              accessToken: accessToken,
+              tokenType: tokenType,
+              userEmail: userEmail,
+              fullName: value.fullName,
+            ),
+          ),
+        );
+      },
     );
   }
 

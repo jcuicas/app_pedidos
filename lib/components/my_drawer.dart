@@ -3,10 +3,12 @@ import 'package:app_pedidos/components/my_user_account.dart';
 
 class MyDrawer extends StatefulWidget {
   final String userEmail;
+  final String fullName;
 
   const MyDrawer({
     super.key,
     required this.userEmail,
+    required this.fullName,
   });
 
   @override
@@ -22,6 +24,7 @@ class _MyDrawerState extends State<MyDrawer> {
         children: [
           MyUserAccount(
             userEmail: widget.userEmail,
+            fullName: widget.fullName,
           )
         ],
       ),
