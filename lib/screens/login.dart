@@ -1,3 +1,4 @@
+import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/models/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
@@ -43,6 +44,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyAppBar(),
       body: cuerpo(),
     );
   }

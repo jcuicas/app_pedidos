@@ -1,3 +1,4 @@
+import 'package:app_pedidos/screens/clientes.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
@@ -31,6 +32,9 @@ class _DashboardState extends State<Dashboard> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: MyDrawer(
+        id: widget.id,
+        accessToken: widget.accessToken,
+        tokenType: widget.tokenType,
         userEmail: widget.userEmail,
         fullName: widget.fullName,
       ),
@@ -81,6 +85,20 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.center,
                 ),
                 subtitle: Image.asset('assets/img/clientes.png'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListadoClientes(
+                        id: widget.id,
+                        accessToken: widget.accessToken,
+                        tokenType: widget.tokenType,
+                        userEmail: widget.userEmail,
+                        fullName: widget.fullName,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),

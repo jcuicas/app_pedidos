@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/screens/login.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
@@ -71,7 +70,6 @@ class _HomeScreenState extends State<HomeScreen> {
     //debugPrint('Conexión: $_conexion');
 
     return Scaffold(
-      appBar: MyAppBar(),
       body: _conexion
           ? Login()
           : Dashboard(
