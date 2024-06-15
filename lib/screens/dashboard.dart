@@ -1,23 +1,12 @@
-import 'package:app_pedidos/screens/clientes.dart';
 import 'package:flutter/material.dart';
-import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
+import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/components/my_button_drawer.dart';
+import 'package:app_pedidos/screens/clientes.dart';
 
 class Dashboard extends StatefulWidget {
-  final String id;
-  final String accessToken;
-  final String tokenType;
-  final String userEmail;
-  final String fullName;
-
   const Dashboard({
     super.key,
-    required this.id,
-    required this.accessToken,
-    required this.tokenType,
-    required this.userEmail,
-    required this.fullName,
   });
 
   @override
@@ -31,13 +20,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: MyDrawer(
-        id: widget.id,
-        accessToken: widget.accessToken,
-        tokenType: widget.tokenType,
-        userEmail: widget.userEmail,
-        fullName: widget.fullName,
-      ),
+      drawer: MyDrawer(),
       appBar: MyAppBar(
         myButtonDrawer: MyButtonDrawer(
           scaffoldKey: _scaffoldKey,
@@ -89,13 +72,7 @@ class _DashboardState extends State<Dashboard> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ListadoClientes(
-                        id: widget.id,
-                        accessToken: widget.accessToken,
-                        tokenType: widget.tokenType,
-                        userEmail: widget.userEmail,
-                        fullName: widget.fullName,
-                      ),
+                      builder: (context) => ListadoClientes(),
                     ),
                   );
                 },

@@ -7,19 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ListadoClientes extends StatefulWidget {
-  final String id;
-  final String accessToken;
-  final String tokenType;
-  final String userEmail;
-  final String fullName;
-
   const ListadoClientes({
     super.key,
-    required this.id,
-    required this.accessToken,
-    required this.tokenType,
-    required this.userEmail,
-    required this.fullName,
   });
 
   @override
@@ -67,13 +56,7 @@ class _ListadoClientesState extends State<ListadoClientes> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: MyDrawer(
-        id: widget.id,
-        accessToken: widget.accessToken,
-        tokenType: widget.tokenType,
-        userEmail: widget.userEmail,
-        fullName: widget.fullName,
-      ),
+      drawer: MyDrawer(),
       appBar: MyAppBar(
         myButtonDrawer: MyButtonDrawer(
           scaffoldKey: _scaffoldKey,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:app_pedidos/screens/home.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:app_pedidos/inherited/my_inherited.dart';
+import 'package:app_pedidos/screens/home.dart';
 
 Future<void> main() async {
   await Supabase.initialize(
@@ -18,13 +19,15 @@ class MyAppPedidos extends StatelessWidget {
   Widget build(BuildContext context) {
     const String tituloApp = 'DAF C.A.';
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: tituloApp,
-      theme:
-          ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
-      home: HomeScreen(
-        titulo: tituloApp,
+    return GetInfoUser(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: tituloApp,
+        theme:
+            ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
+        home: HomeScreen(
+          titulo: tituloApp,
+        ),
       ),
     );
   }

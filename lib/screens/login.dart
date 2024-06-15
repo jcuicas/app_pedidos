@@ -1,6 +1,7 @@
-import 'package:app_pedidos/components/my_appbar.dart';
-import 'package:app_pedidos/models/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:app_pedidos/components/my_appbar.dart';
+import 'package:app_pedidos/inherited/my_inherited.dart';
+import 'package:app_pedidos/models/profile.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
 import 'package:app_pedidos/models/auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -164,16 +165,15 @@ class _LoginState extends State<Login> {
       String id, String accessToken, String tokenType, String userEmail) {
     obtenerPerfil(id).then(
       (value) {
+        GetInfoUser.of(context).setId(id);
+        GetInfoUser.of(context).setAccessToken(accessToken);
+        GetInfoUser.of(context).setTokenType(tokenType);
+        GetInfoUser.of(context).setEmail(userEmail);
+        GetInfoUser.of(context).setFullName(value.fullName);
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Dashboard(
-              id: id,
-              accessToken: accessToken,
-              tokenType: tokenType,
-              userEmail: userEmail,
-              fullName: value.fullName,
-            ),
+            builder: (context) => Dashboard(),
           ),
         );
       },

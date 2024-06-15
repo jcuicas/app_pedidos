@@ -70,15 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //debugPrint('Conexión: $_conexion');
 
     return Scaffold(
-      body: _conexion
-          ? Login()
-          : Dashboard(
-              id: '',
-              accessToken: '',
-              tokenType: '',
-              userEmail: '',
-              fullName: '',
-            ),
+      body: _conexion ? Login() : Dashboard(),
       backgroundColor: Colors.grey[200],
     );
   }
