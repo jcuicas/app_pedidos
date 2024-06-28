@@ -56,10 +56,13 @@ class _LoginState extends State<Login> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           titulo(),
+          SizedBox(
+            height: 20.0,
+          ),
           email(),
           clave(),
           const SizedBox(
-            height: 18.0,
+            height: 22.0,
           ),
           entrar(),
         ],
@@ -71,7 +74,7 @@ class _LoginState extends State<Login> {
     return const Text(
       'Inicio de sesión',
       style: TextStyle(
-        fontSize: 18.0,
+        fontSize: 22.0,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -86,6 +89,7 @@ class _LoginState extends State<Login> {
           hintText: 'Escribe el correo electrónico',
         ),
         autofocus: true,
+        style: TextStyle(fontSize: 18.0),
       ),
     );
   }
@@ -107,6 +111,7 @@ class _LoginState extends State<Login> {
           ),
         ),
         obscureText: passwordVisible,
+        style: TextStyle(fontSize: 18.0),
       ),
     );
   }
@@ -125,7 +130,10 @@ class _LoginState extends State<Login> {
         );
       },
       icon: const Icon(Icons.login_rounded),
-      label: const Text('Entrar'),
+      label: const Text(
+        'Entrar',
+        style: TextStyle(fontSize: 18.0),
+      ),
     );
   }
 

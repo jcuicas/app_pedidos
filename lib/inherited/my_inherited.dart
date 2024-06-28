@@ -11,6 +11,7 @@ class GetInfoUser extends InheritedWidget {
     this.tokenType,
     this.userEmail,
     this.fullName,
+    this.conexion,
   }) : super(child: child);
 
   final Widget child;
@@ -19,6 +20,7 @@ class GetInfoUser extends InheritedWidget {
   String? tokenType;
   String? userEmail;
   String? fullName;
+  bool? conexion;
 
   static GetInfoUser of(BuildContext context) {
     final GetInfoUser? result =
@@ -50,5 +52,9 @@ class GetInfoUser extends InheritedWidget {
 
   void setFullName(String fullName) {
     this.fullName = fullName;
+  }
+
+  void setConexion(bool conexion) {
+    this.conexion = conexion;
   }
 }

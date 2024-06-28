@@ -21,7 +21,7 @@ class BuscarCliente extends SearchDelegate<Cliente> {
         onPressed: () {
           query = '';
         },
-        icon: Icon(Icons.clear),
+        icon: const Icon(Icons.clear),
       ),
     ];
   }
@@ -35,7 +35,7 @@ class BuscarCliente extends SearchDelegate<Cliente> {
           Cliente(id: '', cliente: '', rif: '', grupoCliente: ''),
         );
       },
-      icon: Icon(Icons.arrow_back),
+      icon: const Icon(Icons.arrow_back),
     );
   }
 
@@ -81,6 +81,7 @@ class BuscarCliente extends SearchDelegate<Cliente> {
         return cliente.cliente.contains(query.toUpperCase().trim());
       },
     ).toList();
+
     return ListView.builder(
       itemCount: _filtroClientes.length,
       itemBuilder: (context, index) {

@@ -1,3 +1,7 @@
+import 'package:app_pedidos/inherited/my_inherited.dart';
+import 'package:app_pedidos/screens/categorias.dart';
+import 'package:app_pedidos/screens/existencias.dart';
+import 'package:app_pedidos/screens/historico_pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
@@ -18,6 +22,9 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    if (!GetInfoUser.of(context).conexion!) {
+      getInfoUserOffline();
+    }
     return Scaffold(
       key: _scaffoldKey,
       drawer: MyDrawer(),
@@ -32,38 +39,54 @@ class _DashboardState extends State<Dashboard> {
           Padding(
             padding: const EdgeInsets.only(top: 6.0, left: 3.0),
             child: Card(
-              color: Color(0xffffffff),
+              color: const Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
-                title: Text(
+                title: const Text(
                   'Categorias',
                   textAlign: TextAlign.center,
                 ),
                 subtitle: Image.asset('assets/img/categorias.png'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListadoCategorias(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 6.0, right: 3.0),
             child: Card(
-              color: Color(0xffffffff),
+              color: const Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
-                title: Text(
+                title: const Text(
                   'Historico de pedidos',
                   textAlign: TextAlign.center,
                 ),
                 subtitle: Image.asset('assets/img/pedidos.png'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HistoricoPedidios(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 6.0, left: 3.0),
             child: Card(
-              color: Color(0xffffffff),
+              color: const Color(0xffffffff),
               elevation: 3.0,
               child: ListTile(
-                title: Text(
+                title: const Text(
                   'Clientes',
                   textAlign: TextAlign.center,
                 ),
@@ -90,6 +113,14 @@ class _DashboardState extends State<Dashboard> {
                   textAlign: TextAlign.center,
                 ),
                 subtitle: Image.asset('assets/img/existencias.png'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListadoExistencias(),
+                    ),
+                  );
+                },
               ),
             ),
           ),
@@ -110,5 +141,13 @@ class _DashboardState extends State<Dashboard> {
         backgroundColor: Color(0xffec1c24),
       ),
     );
+  }
+
+  void getInfoUserOffline() {
+    GetInfoUser.of(context).setId('');
+    GetInfoUser.of(context).setAccessToken('');
+    GetInfoUser.of(context).setTokenType('');
+    GetInfoUser.of(context).setEmail('jhondoe@gmail.com');
+    GetInfoUser.of(context).setFullName('Jhon Doe');
   }
 }

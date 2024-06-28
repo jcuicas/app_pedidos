@@ -19,7 +19,7 @@ class _MyButtonDrawerState extends State<MyButtonDrawer> {
       onPressed: () {
         widget.scaffoldKey!.currentState!.openDrawer();
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.menu,
         color: Color(
           0xffffffff,

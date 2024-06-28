@@ -1,7 +1,15 @@
+//import 'dart:io';
+
+import 'package:app_pedidos/providers/obtener_datos_clientes.dart';
+import 'package:app_pedidos/screens/categorias.dart';
+import 'package:app_pedidos/screens/clientes.dart';
+import 'package:app_pedidos/screens/existencias.dart';
+import 'package:app_pedidos/screens/historico_pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
 import 'package:app_pedidos/components/my_user_account.dart';
+import 'package:flutter/services.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({
@@ -27,8 +35,8 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 ListTile(
                   leading: Image.asset('assets/img/dashboard.png'),
-                  title: Text('Inicio'),
-                  trailing: Icon(
+                  title: const Text('Inicio'),
+                  trailing: const Icon(
                     Icons.home,
                     color: Color(0xffec1c24),
                   ),
@@ -46,28 +54,56 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
                 ListTile(
                   leading: Image.asset('assets/img/categorias.png'),
-                  title: Text('Categorias'),
-                  onTap: () {},
+                  title: const Text('Categorias'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListadoCategorias(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Image.asset('assets/img/pedidos.png'),
-                  title: Text('Historico de pedidos'),
-                  onTap: () {},
+                  title: const Text('Historico de pedidos'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HistoricoPedidios(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Image.asset('assets/img/clientes.png'),
-                  title: Text('Clientes'),
-                  onTap: () {},
+                  title: const Text('Clientes'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListadoClientes(),
+                      ),
+                    );
+                  },
                 ),
                 ListTile(
                   leading: Image.asset('assets/img/existencias.png'),
-                  title: Text('Existencias'),
-                  onTap: () {},
+                  title: const Text('Existencias'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ListadoExistencias(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Color(0xffec1c24),
           ),
           Container(
@@ -76,12 +112,14 @@ class _MyDrawerState extends State<MyDrawer> {
               child: Column(
                 children: [
                   ListTile(
-                    leading: Icon(
+                    leading: const Icon(
                       Icons.logout_outlined,
                       color: Color(0xffec1c24),
                     ),
-                    title: Text('Cerrar sesión'),
-                    onTap: () {},
+                    title: const Text('Cerrar sesión'),
+                    onTap: () {
+                      logout();
+                    },
                   ),
                 ],
               ),
@@ -90,5 +128,12 @@ class _MyDrawerState extends State<MyDrawer> {
         ],
       ),
     );
+  }
+
+  void logout() async {
+    await supabase.auth.signOut();
+
+    //exit(0); // Cerrar app en windows
+    SystemNavigator.pop(); // Cerrar app en android
   }
 }

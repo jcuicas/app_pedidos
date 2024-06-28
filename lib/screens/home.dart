@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/screens/login.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
@@ -66,8 +67,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool _conexion = _connectionStatus[0] == ConnectivityResult.wifi;
-    //debugPrint('Conexión: $_conexion');
+    bool _conexion = _connectionStatus[0] == ConnectivityResult.wifi ||
+        _connectionStatus[0] == ConnectivityResult.ethernet;
+
+    GetInfoUser.of(context).setConexion(_conexion);
 
     return Scaffold(
       body: _conexion ? Login() : Dashboard(),
