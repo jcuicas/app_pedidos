@@ -1,3 +1,4 @@
+import 'package:app_pedidos/storage/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/inherited/my_inherited.dart';
@@ -15,8 +16,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final supabase = Supabase.instance.client;
+
   late bool passwordVisible;
   late Future<Auth> loginUser;
+
+  final userStorage = UserStorage();
 
   final emailUser = TextEditingController();
   final passwordUser = TextEditingController();
@@ -178,6 +182,9 @@ class _LoginState extends State<Login> {
         GetInfoUser.of(context).setTokenType(tokenType);
         GetInfoUser.of(context).setEmail(userEmail);
         GetInfoUser.of(context).setFullName(value.fullName);
+
+        userStorage.writeUser(id, value.fullName, userEmail);
+
         Navigator.push(
           context,
           MaterialPageRoute(

@@ -1,7 +1,10 @@
 import 'package:app_pedidos/inherited/my_inherited.dart';
+import 'package:app_pedidos/models/user.dart';
+import 'package:app_pedidos/providers_off/obtener_datos_user_off.dart';
 import 'package:app_pedidos/screens/categorias.dart';
 import 'package:app_pedidos/screens/existencias.dart';
 import 'package:app_pedidos/screens/historico_pedidos.dart';
+import 'package:app_pedidos/storage/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
@@ -19,6 +22,10 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Future<List<User>>? listaUsers;
+
+  final userStorage = UserStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -128,26 +135,33 @@ class _DashboardState extends State<Dashboard> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
-        label: Text(
+        label: const Text(
           'Pedidos',
           style: TextStyle(
             color: Color(0xffffffff),
           ),
         ),
-        icon: Icon(
+        icon: const Icon(
           Icons.thumb_up_alt,
           color: Color(0xffffffff),
         ),
-        backgroundColor: Color(0xffec1c24),
+        backgroundColor: const Color(0xffec1c24),
       ),
     );
   }
 
   void getInfoUserOffline() {
-    GetInfoUser.of(context).setId('');
-    GetInfoUser.of(context).setAccessToken('');
-    GetInfoUser.of(context).setTokenType('');
-    GetInfoUser.of(context).setEmail('jhondoe@gmail.com');
-    GetInfoUser.of(context).setFullName('Jhon Doe');
+    listaUsers = obtenerUsuarios();
+
+    listaUsers!.then(
+      (value) => {
+        for (var item in value)
+          {
+            GetInfoUser.of(context).setId(item.id),
+            GetInfoUser.of(context).setFullName(item.fullName),
+            GetInfoUser.of(context).setEmail(item.userEmail),
+          }
+      },
+    );
   }
 }
