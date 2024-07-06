@@ -11,4 +11,11 @@ class Cliente {
     required this.rif,
     required this.grupoCliente,
   });
+
+    Map toJson() => {
+        'id': id,
+        'cliente': cliente,
+        'rif': rif,
+        'grupo_cliente': grupoCliente
+      };
 }

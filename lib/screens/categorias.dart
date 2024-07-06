@@ -2,8 +2,11 @@ import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_button_drawer.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/delegates/buscar_categorias.dart';
+import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:app_pedidos/models/categorias.dart';
 import 'package:app_pedidos/providers/obtener_datos_categorias.dart';
+import 'package:app_pedidos/providers_off/obtener_datos_categorias_off.dart';
+import 'package:app_pedidos/storage/category_storage.dart';
 import 'package:flutter/material.dart';
 
 class ListadoCategorias extends StatefulWidget {
@@ -18,15 +21,23 @@ class _ListadoCategoriasState extends State<ListadoCategorias> {
 
   late final Future<List<Categoria>> listaCategorias;
 
+  final categoryStorage = CategoryStorage();
+
   @override
   void initState() {
     super.initState();
 
-    listaCategorias = obtenerCategorias();
+    //listaCategorias = obtenerCategorias();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (GetInfoUser.of(context).conexion!) {
+      listaCategorias = obtenerCategorias();
+    } else {
+      listaCategorias = obtenerCategoriasLocal();
+    }
+
     return Scaffold(
         key: _scaffoldKey,
         drawer: MyDrawer(),
@@ -60,7 +71,7 @@ class _ListadoCategoriasState extends State<ListadoCategorias> {
 
     categorias.add(Card(
       child: ListTile(
-        title: Text(
+        title: const Text(
           'Lista de categorias',
           style: TextStyle(
             fontSize: 20.0,
@@ -91,6 +102,8 @@ class _ListadoCategoriasState extends State<ListadoCategorias> {
         ),
       );
     }
+
+    categoryStorage.writeCategories(datos);
 
     return categorias;
   }

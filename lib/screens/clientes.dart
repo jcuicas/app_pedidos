@@ -2,8 +2,11 @@ import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_button_drawer.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/delegates/buscar_clientes.dart';
+import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:app_pedidos/models/cliente.dart';
 import 'package:app_pedidos/providers/obtener_datos_clientes.dart';
+import 'package:app_pedidos/providers_off/obtener_datos_clientes_off.dart';
+import 'package:app_pedidos/storage/client_storage.dart';
 import 'package:flutter/material.dart';
 
 class ListadoClientes extends StatefulWidget {
@@ -20,15 +23,23 @@ class _ListadoClientesState extends State<ListadoClientes> {
 
   late final Future<List<Cliente>> listaClientes;
 
+  final clientStorage = ClientStorage();
+
   @override
   void initState() {
     super.initState();
 
-    listaClientes = obtenerClientes();
+    //listaClientes = obtenerClientes();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (GetInfoUser.of(context).conexion!) {
+      listaClientes = obtenerClientes();
+    } else {
+      listaClientes = obtenerClientesLocal();
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: MyDrawer(),
@@ -64,7 +75,7 @@ class _ListadoClientesState extends State<ListadoClientes> {
     clientes.add(
       Card(
         child: ListTile(
-          title: Text(
+          title: const Text(
             'Lista de clientes',
             style: TextStyle(
               fontSize: 20.0,
@@ -77,7 +88,7 @@ class _ListadoClientesState extends State<ListadoClientes> {
                 delegate: BuscarCliente(listaClientes: datos),
               );
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           ),
         ),
       ),
@@ -97,6 +108,8 @@ class _ListadoClientesState extends State<ListadoClientes> {
         ),
       ));
     }
+
+    clientStorage.writeClients(datos);
 
     return clientes;
   }

@@ -12,4 +12,11 @@ class Producto {
     required this.idCategoria,
     required this.existencia,
   });
+    Map toJson() => {
+        'id': id,
+        'codigo': codigo,
+        'producto': producto,
+        'idcategoria': idCategoria,
+        'existencia': existencia,
+      };
 }

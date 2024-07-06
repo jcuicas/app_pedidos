@@ -131,7 +131,9 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
   void logout() async {
-    await supabase.auth.signOut();
+    if (GetInfoUser.of(context).conexion!) {
+      await supabase.auth.signOut();
+    }
 
     //exit(0); // Cerrar app en windows
     SystemNavigator.pop(); // Cerrar app en android

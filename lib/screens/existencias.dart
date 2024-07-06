@@ -2,8 +2,11 @@ import 'package:app_pedidos/components/my_appbar.dart';
 import 'package:app_pedidos/components/my_button_drawer.dart';
 import 'package:app_pedidos/components/my_drawer.dart';
 import 'package:app_pedidos/delegates/buscar_existencias.dart';
+import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:app_pedidos/models/productos.dart';
 import 'package:app_pedidos/providers/obtener_datos_existencias.dart';
+import 'package:app_pedidos/providers_off/obtener_datos_existencias_off.dart';
+import 'package:app_pedidos/storage/product_storage.dart';
 import 'package:flutter/material.dart';
 
 class ListadoExistencias extends StatefulWidget {
@@ -18,15 +21,23 @@ class _ListadoExistenciasState extends State<ListadoExistencias> {
 
   late final Future<List<Producto>> listaProductos;
 
+  final productStorage = ProductStorage();
+
   @override
   void initState() {
     super.initState();
 
-    listaProductos = obtenerProductos();
+    //listaProductos = obtenerProductos();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (GetInfoUser.of(context).conexion!) {
+      listaProductos = obtenerProductos();
+    } else {
+      listaProductos = obtenerProductosLocal();
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: MyDrawer(),
@@ -92,6 +103,8 @@ class _ListadoExistenciasState extends State<ListadoExistencias> {
         ),
       ));
     }
+
+    productStorage.writeProducts(datos);
 
     return existencias;
   }
