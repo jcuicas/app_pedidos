@@ -5,6 +5,8 @@ import 'package:app_pedidos/screens/categorias.dart';
 import 'package:app_pedidos/screens/clientes.dart';
 import 'package:app_pedidos/screens/existencias.dart';
 import 'package:app_pedidos/screens/historico_pedidos.dart';
+import 'package:app_pedidos/screens/orden_pedidos.dart';
+import 'package:app_pedidos/screens/ver_pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/inherited/my_inherited.dart';
 import 'package:app_pedidos/screens/dashboard.dart';
@@ -96,6 +98,30 @@ class _MyDrawerState extends State<MyDrawer> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ListadoExistencias(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Image.asset('assets/img/order.png'),
+                  title: const Text('Orden de pedido'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrdenPedido(),
+                      ),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Image.asset('assets/img/carrito.png'),
+                  title: const Text('Carrito de pedidos'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VerPedidos(),
                       ),
                     );
                   },

@@ -4,6 +4,7 @@ import 'package:app_pedidos/providers_off/obtener_datos_user_off.dart';
 import 'package:app_pedidos/screens/categorias.dart';
 import 'package:app_pedidos/screens/existencias.dart';
 import 'package:app_pedidos/screens/historico_pedidos.dart';
+import 'package:app_pedidos/screens/orden_pedidos.dart';
 import 'package:app_pedidos/storage/user_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:app_pedidos/components/my_appbar.dart';
@@ -134,7 +135,14 @@ class _DashboardState extends State<Dashboard> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrdenPedido(),
+            ),
+          );
+        },
         label: const Text(
           'Pedidos',
           style: TextStyle(
